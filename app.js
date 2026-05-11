@@ -5,21 +5,20 @@
  */
 
 // === IMPORTS ===
-// Import du framework Express
 const express = require('express');
-
-// Charge les variables d'environnement depuis le fichier .env
 require('dotenv').config();
 
-// === INITIALISATION ===
-// Création de l'application Express
-const app = express();
+// Import de la fonction de connexion à MongoDB
+const connectDB = require('./config/db');
 
-// Récupération du port depuis le .env (ou 3000 par défaut)
+// === INITIALISATION ===
+const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Connexion à la base de données MongoDB
+connectDB();
+
 // === MIDDLEWARES GLOBAUX ===
-// Permet à Express de comprendre le JSON envoyé dans les requêtes
 app.use(express.json());
 
 // === ROUTES ===
@@ -35,4 +34,4 @@ app.get('/', (req, res) => {
 // === LANCEMENT DU SERVEUR ===
 app.listen(PORT, () => {
     console.log(`✅ Serveur démarré sur http://localhost:${PORT}`);
-});
+}); 
