@@ -10,7 +10,9 @@ require('dotenv').config();
 const connectDB = require('./config/db');
 
 // Import des routers
-const catwaysRouter = require('./routes/catways');   // ⬅️ AJOUT 1
+const catwaysRouter = require('./routes/catways');   
+const usersRouter = require('./routes/users');
+
 
 // === INITIALISATION ===
 const app = express();
@@ -26,7 +28,8 @@ app.get('/', (req, res) => {
 });
 
 // Branchement du router catways sur /catways
-app.use('/catways', catwaysRouter);   // ⬅️ AJOUT 2
+app.use('/catways', catwaysRouter);   
+app.use('/users', usersRouter);
 
 // === LANCEMENT DU SERVEUR ===
 app.listen(PORT, () => {
