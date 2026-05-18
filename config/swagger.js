@@ -1,0 +1,22 @@
+const swaggerJsdoc = require('swagger-jsdoc');
+
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API Port de Plaisance Russell',
+            version: '1.0.0',
+            description: 'API REST pour la gestion des catways et réservations'
+        },
+        servers: [{ url: 'http://localhost:3000' }],
+        components: {
+            securitySchemes: {
+                bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }
+            }
+        },
+        security: [{ bearerAuth: [] }]
+    },
+    apis: ['./routes/*.js', './controllers/*.js']
+};
+
+module.exports = swaggerJsdoc(options);

@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+<nav>
+    <a href="/dashboard">Accueil</a>
+    <a href="/views/catways">Catways</a>
+    <a href="/views/reservations">Réservations</a>
+    <a href="/views/users">Utilisateurs</a>
+    <a href="/api-docs">Doc API</a>
+    <button onclick="logout()">Se déconnecter</button>
+</nav>
+<main>
+    <h1>Tableau de bord</h1>
+    <p>📅 Date : <%= today.toLocaleDateString('fr-FR') %></p>
+    <h2>Réservations en cours (<%= reservations.length %>)</h2>
+    <table>
+        <thead>
+            <tr><th>Catway</th><th>Client</th><th>Bateau</th><th>Du</th><th>Au</th></tr>
+        </thead>
+        <tbody>
+            <% reservations.forEach(r => { %>
+                <tr>
+                    <td><%= r.catwayNumber %></td>
+                    <td><%= r.clientName %></td>
+                    <td><%= r.boatName %></td>
+                    <td><%= r.startDate.toLocaleDateString('fr-FR') %></td>
+                    <td><%= r.endDate.toLocaleDateString('fr-FR') %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</main>
+<script>
+async function logout() {
+    await fetch('/logout');
+    window.location.href = '/';
+}
+</script>
+<%- include('partials/footer') %>

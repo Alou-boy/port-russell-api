@@ -35,18 +35,15 @@ const userSchema = new mongoose.Schema({
 
 /**
  * Middleware pre-save : hash automatiquement le password avant enregistrement
+ * @function pre-save
  */
-//userSchema.pre('save', async function(next) {
-    // Si le password n'a pas été modifié, on ne le re-hash pas (sinon double hash)
-//    if (!this.isModified('password')) return next();
-//    try {
-//        const salt = await bcrypt.genSalt(10);
-//        this.password = await bcrypt.hash(this.password, salt);
- //       next();
-  //  } catch (err) {
-   //     next(err);
-   // }
-//});
+userSchema.pre('save', async function() {
+    // Si le password n'a pas été modifié, on skip
+    if (!this.isModified('password')) return;
+    // Sinon on hash
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+});
 
 /**
  * Méthode pour comparer un password en clair avec le hash stocké

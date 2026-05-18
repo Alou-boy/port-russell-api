@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const catwayController = require('../controllers/catwayController');
 
-// ⬇️ AJOUT 1 : import du router des réservations
-const reservationsRouter = require('./reservations');
 
-// ⬇️ AJOUT 2 : branchement comme sous-ressource des catways
+const reservationsRouter = require('./reservations')
 router.use('/:id/reservations', reservationsRouter);
+const { authMiddleware } = require('../middlewares/auth');
+router.use(authMiddleware); 
 
 // Routes CRUD pour les catways (inchangées)
 router.get('/', catwayController.getAllCatways);

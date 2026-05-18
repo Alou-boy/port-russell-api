@@ -37,15 +37,4 @@ const reservationSchema = new mongoose.Schema({
         required: [true, 'La date de fin est obligatoire']
     }
 }, { timestamps: true });
-
-/**
- * Vérifie que endDate est après startDate avant l'enregistrement
- */
-//reservationSchema.pre('save', function(next) {
-//    if (this.endDate <= this.startDate) {
-  //      return next(new Error('La date de fin doit être postérieure à la date de début'));
-    //}
-   // next();
-//});
-
 module.exports = mongoose.model('Reservation', reservationSchema);

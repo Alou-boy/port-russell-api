@@ -9,6 +9,18 @@ const User = require('../models/User');
  * Liste tous les utilisateurs (sans renvoyer les passwords)
  * @route GET /users
  */
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Liste tous les utilisateurs
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Liste des utilisateurs
+ */
 exports.getAllUsers = async (req, res) => {
     try {
         // .select('-password') exclut le champ password de la réponse
@@ -22,6 +34,27 @@ exports.getAllUsers = async (req, res) => {
 /**
  * Récupère un utilisateur par son email
  * @route GET /users/:email
+ */
+
+/**
+ * @swagger
+ * /users/{email}:
+ *   get:
+ *     summary: Récupère un utilisateur par son email
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Utilisateur trouvé
+ *       404:
+ *         description: Utilisateur non trouvé
  */
 exports.getUserByEmail = async (req, res) => {
     try {
@@ -40,6 +73,28 @@ exports.getUserByEmail = async (req, res) => {
  * Le password est automatiquement haché par le middleware pre-save du modèle
  * @route POST /users
  */
+
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Crée un nouvel utilisateur
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       201:
+ *         description: Utilisateur créé
+ *       400:
+ *         description: Données invalides
+ */
+
 exports.createUser = async (req, res) => {
     try {
         const newUser = await User.create(req.body);
@@ -56,6 +111,35 @@ exports.createUser = async (req, res) => {
  * Modifie un utilisateur par email
  * Le password est re-haché automatiquement si modifié
  * @route PUT /users/:email
+ */
+
+/**
+ * @swagger
+ * /users/{email}:
+ *   put:
+ *     summary: Modifie un utilisateur par email
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: Utilisateur mis à jour
+ *       400:
+ *         description: Données invalides
+ *       404:
+ *         description: Utilisateur non trouvé
  */
 exports.updateUser = async (req, res) => {
     try {
@@ -79,6 +163,27 @@ exports.updateUser = async (req, res) => {
 /**
  * Supprime un utilisateur par email
  * @route DELETE /users/:email
+ */
+
+/**
+ * @swagger
+ * /users/{email}:
+ *   delete:
+ *     summary: Supprime un utilisateur par email
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Utilisateur supprimé
+ *       404:
+ *         description: Utilisateur non trouvé
  */
 exports.deleteUser = async (req, res) => {
     try {

@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<header>
+    <h1>🚢 Port de Plaisance Russell</h1>
+    <p>Système de gestion des réservations de catways</p>
+</header>
+<main>
+    <h2>Connexion</h2>
+    <form id="loginForm">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+        <button type="submit">Se connecter</button>
+    </form>
+    <a href="/api-docs">📚 Documentation de l'API</a>
+</main>
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const res = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            email: formData.get('email'),
+            password: formData.get('password')
+        })
+    });
+    if (res.ok) window.location.href = '/dashboard';
+    else alert('Identifiants invalides');
+});
+</script>
+<%- include('partials/footer') %>
