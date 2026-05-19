@@ -59,6 +59,8 @@ Le serveur démarre sur **http://localhost:3000**
 - 🌐 **Application en ligne** : [À COMPLÉTER après l'étape 12]
 - 📚 **Documentation API (Swagger)** : http://localhost:3000/api-docs
 - 🏠 **Page d'accueil** : http://localhost:3000
+- 🌐 **Application en ligne** : https://port-russell-api-svz1.onrender.com
+- 📚 **Documentation API** : https://port-russell-api-svz1.onrender.com/api-docs
 
 ---
 
@@ -104,6 +106,8 @@ port-russell-api/
 ├── data/           # Données JSON initiales
 └── app.js          # Point d'entrée
 \`\`\`
+
+
 
 ---
 
